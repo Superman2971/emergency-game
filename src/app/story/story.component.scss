@@ -1,8 +1,8 @@
 .story {
   border: 1px solid rgba(0, 0, 0, 0.24);
-  height: 100%;
+  height: calc(100vh - 72px);
   max-height: calc(100vh - 72px);
-  min-height: 100px;
+  min-height: 300px;
   overflow: hidden;
   position: relative;
   width: 300px;
@@ -10,7 +10,7 @@
   .gradient {
     background: linear-gradient(transparent, #fff);
     bottom: 0;
-    height: 100px;
+    height: 75px;
     left: 0;
     position: absolute;
     width: 100%;

@@ -1,5 +1,7 @@
 <div class="app">
-  <div (click)="activateRoom1 = !activateRoom1">Welcome to Emergency Room!</div>
+  <div (click)="activateRoom1 = !activateRoom1">Welcome to the Emergency Room!</div>
+  <div *ngIf="money === 0">You are Broke!</div>
+  <div *ngIf="money !== 0 ">You have ${{money}}</div>
   <div class="flex-row">
     <app-story></app-story>
     <app-room1 *ngIf="activateRoom1"></app-room1>

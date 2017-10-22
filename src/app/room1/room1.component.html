@@ -1,1 +1,29 @@
-<div (click)="sendMessage()">ROOM 1 ACTIVATED</div>
+<div class="room1">
+  <div>Room 1</div>
+  <div class="flex-row">
+    <div>
+      <div>Heal</div>
+      <div class="button" [class.disabled]="!buttons.active" (click)="sendMessage('Triage'); buttons.progressInit();">
+        <div>Triage</div>
+        <div class="progress" [style.width.%]="buttons.progress"></div>
+      </div>
+      <div class="button" (click)="sendMessage('Heal')">Heal</div>
+      <div class="button" (click)="sendMessage('Crisis')">Crisis</div>
+      <div class="button" (click)="sendMessage('Process')">Process</div>
+    </div>
+    <div>
+      <div>Expansion</div>
+      <div class="button" (click)="sendMessage('Bed')">Bed</div>
+      <div class="button" (click)="sendMessage('Wing')">Wing</div>
+      <div class="button" (click)="sendMessage('Sugery')">Sugery</div>
+    </div>
+    <div>
+      <div>Employees</div>
+      <div class="button" (click)="sendMessage('Receptionist')">Receptionist</div>
+      <div class="button" (click)="sendMessage('ER Doctor')">ER Doctor</div>
+      <div class="button" (click)="sendMessage('Surgeon')">Surgeon</div>
+      <div class="button" (click)="sendMessage('Specialist')">Specialist</div>
+      <div class="button" (click)="sendMessage('Administrator')">Administrator</div>
+    </div>
+  </div>
+</div>
