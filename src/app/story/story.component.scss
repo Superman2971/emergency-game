@@ -1,11 +1,22 @@
 .story {
   border: 1px solid rgba(0, 0, 0, 0.24);
   height: calc(100vh - 72px);
+  margin: 16px;
   max-height: calc(100vh - 72px);
   min-height: 300px;
   overflow: hidden;
+  padding: 16px;
   position: relative;
+  text-align: left;
   width: 300px;
+
+  @media (max-width: 719px) {
+    width: calc(100% - 32px);
+  }
+
+  .text {
+    margin: 8px 0 0 0;
+  }
 
   .gradient {
     background: linear-gradient(transparent, #fff);

@@ -1,7 +1,6 @@
 .app {
   min-width: 100vw;
   min-height: 100vh;
-  padding: 16px;
   text-align: center;
 
   .flex-row {
@@ -9,5 +8,18 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    transition: 1s;
+
+    &.room1 {
+      @media (max-width: 719px) {
+        transform: translateX(-100%);
+      }
+    }
+
+    .mobile-full-screen {
+      @media (max-width: 719px) {
+        min-width: 100%;
+      }
+    }
   }
 }

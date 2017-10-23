@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { BroadcasterService } from '../../services/broadcaster.service';
 
 @Component({
-  selector: 'app-bed-button',
-  templateUrl: './bed-button.component.html',
-  styleUrls: ['./bed-button.component.scss']
+  selector: 'app-administrator-button',
+  templateUrl: './administrator-button.component.html',
+  styleUrls: ['./administrator-button.component.scss']
 })
-export class BedButtonComponent implements OnInit {
+export class AdministratorButtonComponent implements OnInit {
   sentText = 1;
   active = true;
   progress = 0;
-  timeToActive = 5000;
+  timeToActive = 2000;
 
   constructor(private broadcast: BroadcasterService) {}
 
@@ -38,7 +38,7 @@ export class BedButtonComponent implements OnInit {
   }
 
   purchase() {
-    this.broadcast.fire('money', -100);
-    this.sendMessage('Aquired a new Bed.');
+    this.broadcast.fire('money', -150);
+    this.sendMessage('Hired a new Administrator.');
   }
 }

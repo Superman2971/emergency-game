@@ -7,7 +7,7 @@ import { BroadcasterService } from './services/broadcaster.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  activateRoom1 = false;
+  room1 = false;
   money = 3000;
 
   constructor(private broadcast: BroadcasterService) {}

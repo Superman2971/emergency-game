@@ -3,27 +3,24 @@
   <div class="flex-row">
     <div>
       <div>Heal</div>
-      <div class="button" [class.disabled]="!buttons.active" (click)="sendMessage('Triage'); buttons.progressInit();">
-        <div>Triage</div>
-        <div class="progress" [style.width.%]="buttons.progress"></div>
-      </div>
-      <div class="button" (click)="sendMessage('Heal')">Heal</div>
-      <div class="button" (click)="sendMessage('Crisis')">Crisis</div>
-      <div class="button" (click)="sendMessage('Process')">Process</div>
+      <app-triage-button></app-triage-button>
+      <app-heal-button></app-heal-button>
+      <app-process-button></app-process-button>
+      <app-crisis-button></app-crisis-button>
     </div>
     <div>
       <div>Expansion</div>
       <app-bed-button></app-bed-button>
-      <div class="button" (click)="sendMessage('Wing')">Wing</div>
-      <div class="button" (click)="sendMessage('Sugery')">Sugery</div>
+      <app-surgery-button></app-surgery-button>
+      <app-wing-button></app-wing-button>
     </div>
     <div>
       <div>Employees</div>
-      <div class="button" (click)="sendMessage('Receptionist')">Receptionist</div>
-      <div class="button" (click)="sendMessage('ER Doctor')">ER Doctor</div>
-      <div class="button" (click)="sendMessage('Surgeon')">Surgeon</div>
-      <div class="button" (click)="sendMessage('Specialist')">Specialist</div>
-      <div class="button" (click)="sendMessage('Administrator')">Administrator</div>
+      <app-administrator-button></app-administrator-button>
+      <app-er-doctor-button></app-er-doctor-button>
+      <app-receptionist-button></app-receptionist-button>
+      <app-specialist-button></app-specialist-button>
+      <app-surgeon-button></app-surgeon-button>
     </div>
   </div>
 </div>

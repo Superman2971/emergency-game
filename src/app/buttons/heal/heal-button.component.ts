@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BroadcasterService } from '../../services/broadcaster.service';
 
 @Component({
-  selector: 'app-bed-button',
-  templateUrl: './bed-button.component.html',
-  styleUrls: ['./bed-button.component.scss']
+  selector: 'app-heal-button',
+  templateUrl: './heal-button.component.html',
+  styleUrls: ['./heal-button.component.scss']
 })
-export class BedButtonComponent implements OnInit {
+export class HealButtonComponent implements OnInit {
   sentText = 1;
   active = true;
   progress = 0;
@@ -38,7 +38,7 @@ export class BedButtonComponent implements OnInit {
   }
 
   purchase() {
-    this.broadcast.fire('money', -100);
-    this.sendMessage('Aquired a new Bed.');
+    this.broadcast.fire('money', 250);
+    this.sendMessage('Helped heal a patient and send them home.');
   }
 }

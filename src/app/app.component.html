@@ -1,10 +1,13 @@
 <div class="app">
-  <div (click)="activateRoom1 = !activateRoom1">Welcome to the Emergency Room!</div>
+  <div style="position: relative;">
+    <h1>Welcome to the Emergency Room!</h1>
+    <div style="position: absolute; right: 16px; top: 16px;" (click)="room1 = !room1">(change room)</div>
+  </div>
   <div *ngIf="money === 0">You are Broke!</div>
   <div *ngIf="money !== 0 ">You have ${{money}}</div>
-  <div class="flex-row">
-    <app-story></app-story>
-    <app-room1 *ngIf="activateRoom1"></app-room1>
+  <div class="flex-row" [class.room1]="room1">
+    <app-story class="mobile-full-screen"></app-story>
+    <app-room1 class="mobile-full-screen"></app-room1>
   </div>
 </div>
 
