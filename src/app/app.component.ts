@@ -9,6 +9,7 @@ import { BroadcasterService } from './services/broadcaster.service';
 export class AppComponent implements OnInit {
   room1 = false;
   money = 3000;
+  patients = 0;
 
   constructor(private broadcast: BroadcasterService) {}
 
@@ -19,5 +20,19 @@ export class AppComponent implements OnInit {
         this.money += response;
       }
     });
+    this.newPatient();
+  }
+
+  newPatient() {
+    setTimeout(() => {
+      this.patients++;
+      if (this.patients < 10) {
+        this.newPatient();
+      }
+    }, this.randomTime(3000, 7000));
+  }
+
+  randomTime(min, max) {
+    return Math.floor(Math.random() * max) + 1 + min;
   }
 }

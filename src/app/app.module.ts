@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { BroadcasterService } from './services/broadcaster.service';
 // Pipes
 import { ReversePipe } from './pipes/reverse.pipe';
+import { ObjectPipe } from './pipes/object.pipe';
 // Components
 import { AppComponent } from './app.component';
 import { StoryComponent } from './story/story.component';
 import { Room1Component } from './room1/room1.component';
+import { StatsComponent } from './stats/stats.component';
 // Button Components
 import { AdministratorButtonComponent } from './buttons/administrator/administrator-button.component';
 import { BedButtonComponent } from './buttons/Bed/bed-button.component';
@@ -27,6 +29,7 @@ import { WingButtonComponent } from './buttons/wing/wing-button.component';
     AppComponent,
     StoryComponent,
     Room1Component,
+    StatsComponent,
     // Buttons
     AdministratorButtonComponent,
     BedButtonComponent,
@@ -41,7 +44,8 @@ import { WingButtonComponent } from './buttons/wing/wing-button.component';
     TriageButtonComponent,
     WingButtonComponent,
     // Pipe
-    ReversePipe
+    ReversePipe,
+    ObjectPipe
   ],
   imports: [
     BrowserModule
