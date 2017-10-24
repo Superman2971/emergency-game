@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // Services
 import { BroadcasterService } from './services/broadcaster.service';
+import { PatientService } from './services/patient.service';
 // Pipes
 import { ReversePipe } from './pipes/reverse.pipe';
 import { ObjectPipe } from './pipes/object.pipe';
@@ -51,7 +52,8 @@ import { WingButtonComponent } from './buttons/wing/wing-button.component';
     BrowserModule
   ],
   providers: [
-    BroadcasterService
+    BroadcasterService,
+    PatientService
   ],
   bootstrap: [AppComponent]
 })
