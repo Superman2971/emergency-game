@@ -16,10 +16,40 @@
       }
     }
 
+    &.room2 {
+      @media (max-width: 719px) {
+        transform: translateX(-200%);
+      }
+    }
+
     .mobile-full-screen {
       @media (max-width: 719px) {
         min-width: 100%;
       }
+    }
+  }
+
+  .direction {
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 16px;
+
+    @media (max-width: 719px) {
+      display: block;
+    }
+
+    &.left {
+      left: 16px;
+    }
+
+    &.right {
+      right: 16px;
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.24;
     }
   }
 }

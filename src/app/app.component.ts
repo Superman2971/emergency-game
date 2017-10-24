@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   room1 = false;
   money = 3000;
   patients = 0;
+  room = 0;
 
   constructor(private broadcast: BroadcasterService) {}
 
@@ -34,5 +35,13 @@ export class AppComponent implements OnInit {
 
   randomTime(min, max) {
     return Math.floor(Math.random() * max) + 1 + min;
+  }
+
+  roomChange(direction) {
+    if (direction === 'back' && this.room > 0) {
+      this.room--;
+    } else if (direction == 'forward' && this.room < 2) {
+      this.room++;
+    }
   }
 }
