@@ -22,6 +22,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this._subscription = patientService.patientsChange.subscribe((value) => {
       console.log('subscribed', value);
       this.patients = value;
+      if (this.patients.length > 0) {
+        const lastPatient = this.patients.length - 1;
+        this.broadcast.fire('newMessage', 'A patient has arrived with ' + this.patients[lastPatient].condition);
+      }
     });
   }
 

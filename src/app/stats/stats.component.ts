@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BroadcasterService } from '../services/broadcaster.service';
+import { PatientService } from '../services/patient.service';
 
 @Component({
   selector: 'app-stats',
@@ -7,13 +8,23 @@ import { BroadcasterService } from '../services/broadcaster.service';
   styleUrls: ['./stats.component.scss']
 })
 
-export class StatsComponent implements OnInit {
+export class StatsComponent implements OnInit, OnDestroy {
+  _subscription;
   stats = {
-    patients: 2,
+    money: 0,
+    patients: 0,
     beds: 1,
     otherInfo: 'need lots more'
   };
-  constructor(private broadcast: BroadcasterService) {}
+  constructor(
+    private broadcast: BroadcasterService,
+    private patientService: PatientService
+  ) {
+    this._subscription = this.patientService.patientsChange.subscribe((response) => {
+      console.log('patients', response.length);
+      this.stats.patients = response.length;
+    });
+  }
 
   ngOnInit() {
     // subscribe to 'newStats'
@@ -21,5 +32,10 @@ export class StatsComponent implements OnInit {
       console.log(response);
       // this.stats = response;
     });
+  }
+
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this._subscription.unsubscribe();
   }
 }
