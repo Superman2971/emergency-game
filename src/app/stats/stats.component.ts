@@ -21,7 +21,6 @@ export class StatsComponent implements OnInit, OnDestroy {
     private patientService: PatientService
   ) {
     this._subscription = this.patientService.patientsChange.subscribe((response) => {
-      console.log('patients', response.length);
       this.stats.patients = response.length;
     });
   }
@@ -29,7 +28,7 @@ export class StatsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // subscribe to 'newStats'
     this.broadcast.on('newStats').subscribe(response => {
-      console.log(response);
+      console.log('newStats', response);
       // this.stats = response;
     });
   }

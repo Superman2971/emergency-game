@@ -3,46 +3,47 @@ import { NgModule } from '@angular/core';
 // Services
 import { BroadcasterService } from './services/broadcaster.service';
 import { PatientService } from './services/patient.service';
+import { StatsService } from './services/stats.service';
 // Pipes
 import { ReversePipe } from './pipes/reverse.pipe';
 import { ObjectPipe } from './pipes/object.pipe';
 // Components
 import { AppComponent } from './app.component';
 import { StoryComponent } from './story/story.component';
-import { Room1Component } from './room1/room1.component';
+import { ButtonsContainerComponent } from './buttons-container/buttons-container.component';
 import { StatsComponent } from './stats/stats.component';
 // Button Components
 import { AdministratorButtonComponent } from './buttons/administrator/administrator-button.component';
 import { BedButtonComponent } from './buttons/Bed/bed-button.component';
 import { CrisisButtonComponent } from './buttons/crisis/crisis-button.component';
 import { ERDoctorButtonComponent } from './buttons/er-doctor/er-doctor-button.component';
-import { HealButtonComponent } from './buttons/heal/heal-button.component';
+import { TreatButtonComponent } from './buttons/treat/treat-button.component';
 import { ProcessButtonComponent } from './buttons/process/process-button.component';
 import { ReceptionistButtonComponent } from './buttons/receptionist/receptionist-button.component';
 import { SpecialistButtonComponent } from './buttons/specialist/specialist-button.component';
 import { SurgeonButtonComponent } from './buttons/surgeon/surgeon-button.component';
 import { SurgeryButtonComponent } from './buttons/surgery/surgery-button.component';
-import { TriageButtonComponent } from './buttons/triage/triage-button.component';
+import { DiagnoseButtonComponent } from './buttons/diagnose/diagnose-button.component';
 import { WingButtonComponent } from './buttons/wing/wing-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StoryComponent,
-    Room1Component,
+    ButtonsContainerComponent,
     StatsComponent,
     // Buttons
     AdministratorButtonComponent,
     BedButtonComponent,
     CrisisButtonComponent,
     ERDoctorButtonComponent,
-    HealButtonComponent,
+    TreatButtonComponent,
     ProcessButtonComponent,
     ReceptionistButtonComponent,
     SpecialistButtonComponent,
     SurgeonButtonComponent,
     SurgeryButtonComponent,
-    TriageButtonComponent,
+    DiagnoseButtonComponent,
     WingButtonComponent,
     // Pipe
     ReversePipe,
@@ -53,7 +54,8 @@ import { WingButtonComponent } from './buttons/wing/wing-button.component';
   ],
   providers: [
     BroadcasterService,
-    PatientService
+    PatientService,
+    StatsService
   ],
   bootstrap: [AppComponent]
 })

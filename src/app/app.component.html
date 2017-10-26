@@ -6,11 +6,10 @@
   </div>
   <div *ngIf="money === 0">You are Broke!</div>
   <div *ngIf="money !== 0 ">You have ${{money}}</div>
-  <div>Patients in the room are {{patients.length}}</div>
   <div class="flex-row" [class.room1]="room === 1" [class.room2]="room === 2">
     <app-story class="mobile-full-screen"></app-story>
-    <app-room1 class="mobile-full-screen"></app-room1>
-    <app-stats class="mobile-full-screen"></app-stats>
+    <app-buttons-container class="mobile-full-screen"></app-buttons-container>
+    <!-- <app-stats class="mobile-full-screen"></app-stats> -->
   </div>
 </div>
 

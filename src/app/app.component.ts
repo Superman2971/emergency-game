@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BroadcasterService } from './services/broadcaster.service';
 import { PatientService } from './services/patient.service';
+import { StatsService } from './services/stats.service';
 
 @Component({
   selector: 'app-root',
@@ -9,37 +9,27 @@ import { PatientService } from './services/patient.service';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-  money = 3000;
-  patients = [];
+  money: number;
   room = 0;
   _subscription;
 
   constructor(
-    private broadcast: BroadcasterService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private stats: StatsService
   ) {
-    // subscribed to patient changes
-    this._subscription = patientService.patientsChange.subscribe((value) => {
-      console.log('subscribed', value);
-      this.patients = value;
-      if (this.patients.length > 0) {
-        const lastPatient = this.patients.length - 1;
-        this.broadcast.fire('newMessage', 'A patient has arrived with ' + this.patients[lastPatient].condition);
-      }
+    // subscribed to money changes
+    this._subscription = stats.moneyChange.subscribe((value) => {
+      this.money = value;
     });
   }
 
   ngOnInit() {
     // start the clock
     this.patientService.startClock();
-    // subscribe to 'money' changes
-    this.broadcast.on('money').subscribe(response => {
-      if (typeof response === 'number') {
-        this.money += response;
-      }
-    });
     // add first new patient
-    this.patientService.newPatient();
+    this.patientService.newPatient(2000, 2000);
+    // set the money
+    this.money = this.stats.money;
   }
 
   roomChange(direction) {
