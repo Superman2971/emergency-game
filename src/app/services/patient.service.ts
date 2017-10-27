@@ -9,12 +9,12 @@ export class PatientService {
   patientCount = 0;
   time = 0;
   conditions = [
-    'cold',
-    'fever',
-    'broken leg',
-    'head wound',
-    'internal bleeding',
-    'cancer'
+    {name: 'cold', level: 1},
+    {name: 'fever', level: 3},
+    {name: 'broken leg', level: 5},
+    {name: 'head wound', level: 8},
+    {name: 'internal bleeding', level: 8},
+    {name: 'gun shot', level: 10}
   ];
   waitingRoomCapacity = 4;
 
@@ -32,16 +32,23 @@ export class PatientService {
     setTimeout(() => {
       let newPatient = {
         id: this.patientCount,
-        condition: this.randomCondition(),
+        condition: null,
+        difficulty: null,
         arrivalTime: this.time,
         diagnosed: false,
         treated: false,
         processed: false,
         released: false,
         alive: true,
-        timeoutId: null
+        timeoutId: null,
+        treatTimeoutId: null
       };
+      const condition = this.randomCondition();
+      newPatient.condition = condition.name;
+      newPatient.difficulty = condition.level;
       newPatient.timeoutId = this.createTimeout(newPatient, this.numberBetween(20000, 40000));
+      // newPatient.treatTimeoutId = this.createTimeout(newPatient,
+      //   this.numberBetween((100000 / newPatient.difficulty), (200000 / newPatient.difficulty))); ////  NOTE TO MAKE THIS WORK NEED TO MAKE NEW CREATE TIMEOUT SO IT DOESNT USE THE SAME REMOVE PATIENT FUNCTION
       // add another patient
       this.patients.push(newPatient);
       if (this.patients.length > this.waitingRoomCapacity) {

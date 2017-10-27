@@ -41,8 +41,12 @@ export class TreatButtonComponent implements OnInit {
   }
 
   purchase() {
-    this.untreatedPatients.shift();
+    let untreatedPatient = this.untreatedPatients.shift();
+    if (untreatedPatient.timeoutId) {
+      clearTimeout(untreatedPatient.timeoutId);
+      untreatedPatient.timeoutId = null;
+    }
     this.stats.changeMoney(200);
-    this.stats.newMessage('Helped treat a patient and sent them home.');
+    this.stats.newMessage(`Helped treat ${untreatedPatient.condition} and sent them home.`);
   }
 }
