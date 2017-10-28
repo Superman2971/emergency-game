@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { StatsService } from '../../services/stats.service';
 import { PatientService } from '../../services/patient.service';
 
@@ -8,7 +8,8 @@ import { PatientService } from '../../services/patient.service';
   styleUrls: ['./treat-button.component.scss']
 })
 export class TreatButtonComponent implements OnDestroy {
-  active = true;
+  @Input() deactivate;
+  @Output() activation: EventEmitter<boolean> = new EventEmitter();
   progress = 0;
   timeToActive = 5000;
   patients = [];
@@ -25,15 +26,15 @@ export class TreatButtonComponent implements OnDestroy {
   }
 
   progressInit() {
-    if (this.active && this.patients.length > 0) {
-      this.active = false;
+    if (!this.deactivate && this.patients.length > 0) {
+      this.activation.emit(true);
       this.progress = 100;
       this.purchase();
       const timer = setInterval(() => {
         this.progress--;
         if (this.progress === 0) {
           clearInterval(timer);
-          this.active = true;
+          this.activation.emit(false);
         }
       }, this.timeToActive / 100);
     }

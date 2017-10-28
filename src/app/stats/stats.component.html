@@ -1,8 +1,10 @@
 <div class="stats">
   <div>STATS</div>
   <div class="flex-row" *ngFor="let stat of stats | object">
-    <div>{{stat.key}}</div>
-    <div>{{stat.value}}</div>
+    <!-- <div>{{stat.key}}</div> -->
+    <div style="margin-right: 16px">{{stat.value.text}}</div>
+    <!-- <div>{{stat.value.value}}</div> -->
+    <div>{{stat.key === 'money' ? (stat.value.value | currency:'USD':true:'.0') : stat.value.value}}</div>
   </div>
   <div>
     <div>RECORDS</div>

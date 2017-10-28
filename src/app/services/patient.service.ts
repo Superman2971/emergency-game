@@ -4,6 +4,7 @@ export class PatientService {
 
   stopthis;
   // records
+  statUpdate: Subject<any> = new Subject<any>();
   recordChange: Subject<any[]> = new Subject<any[]>();
   records = [];
   // messages
@@ -43,6 +44,10 @@ export class PatientService {
   startClock() {
     setInterval(() => {
       this.time++;
+      this.statUpdate.next({
+        key: 'time',
+        value: this.time
+      });
       if (this.time % 240 === 0) {
         this.newEvent();
       }
@@ -163,6 +168,10 @@ export class PatientService {
   }
 
   treated(patient) {
+    this.statUpdate.next({
+      key: 'averageTime',
+      value: (this.time - patient.arrivalTime)
+    });
     this.newRecord(`Patient ${patient.id} went home. Treated.`);
     this.newPatientMessage.next(`We treated a patient for ${patient.condition}`);
   }

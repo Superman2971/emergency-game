@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { BroadcasterService } from '../../services/broadcaster.service';
 
 @Component({
-  selector: 'app-crisis-button',
-  templateUrl: './crisis-button.component.html',
-  styleUrls: ['./crisis-button.component.scss']
+  selector: 'app-examine-button',
+  templateUrl: './examine-button.component.html',
+  styleUrls: ['./examine-button.component.scss']
 })
-export class CrisisButtonComponent implements OnInit {
+export class ExamineButtonComponent implements OnInit {
   sentText = 1;
   active = true;
   progress = 0;
-  timeToActive = 9000;
+  timeToActive = 2000;
 
   constructor(private broadcast: BroadcasterService) {}
 
@@ -38,7 +38,7 @@ export class CrisisButtonComponent implements OnInit {
   }
 
   purchase() {
-    this.broadcast.fire('money', 900);
-    this.sendMessage('Crisis has been averted.');
+    this.broadcast.fire('money', -150);
+    this.sendMessage('EXAMINATION');
   }
 }

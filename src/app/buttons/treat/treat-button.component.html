@@ -1,4 +1,4 @@
-<div class="button" [class.disabled]="!active || patients.length === 0" (click)="progressInit();">
+<div class="button" [class.disabled]="deactivate || patients.length === 0" (click)="progressInit();">
   <div>Treat</div>
   <div [innerHTML]="patients.length"></div>
   <div class="progress" [style.width.%]="progress"></div>

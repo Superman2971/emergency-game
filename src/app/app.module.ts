@@ -13,18 +13,10 @@ import { StoryComponent } from './story/story.component';
 import { ButtonsContainerComponent } from './buttons-container/buttons-container.component';
 import { StatsComponent } from './stats/stats.component';
 // Button Components
-import { AdministratorButtonComponent } from './buttons/administrator/administrator-button.component';
 import { BedButtonComponent } from './buttons/Bed/bed-button.component';
-import { CrisisButtonComponent } from './buttons/crisis/crisis-button.component';
-import { ERDoctorButtonComponent } from './buttons/er-doctor/er-doctor-button.component';
+import { ExamineButtonComponent } from './buttons/examine/examine-button.component';
 import { TreatButtonComponent } from './buttons/treat/treat-button.component';
-import { ProcessButtonComponent } from './buttons/process/process-button.component';
-import { ReceptionistButtonComponent } from './buttons/receptionist/receptionist-button.component';
-import { SpecialistButtonComponent } from './buttons/specialist/specialist-button.component';
-import { SurgeonButtonComponent } from './buttons/surgeon/surgeon-button.component';
-import { SurgeryButtonComponent } from './buttons/surgery/surgery-button.component';
 import { DiagnoseButtonComponent } from './buttons/diagnose/diagnose-button.component';
-import { WingButtonComponent } from './buttons/wing/wing-button.component';
 
 @NgModule({
   declarations: [
@@ -33,18 +25,10 @@ import { WingButtonComponent } from './buttons/wing/wing-button.component';
     ButtonsContainerComponent,
     StatsComponent,
     // Buttons
-    AdministratorButtonComponent,
     BedButtonComponent,
-    CrisisButtonComponent,
-    ERDoctorButtonComponent,
     TreatButtonComponent,
-    ProcessButtonComponent,
-    ReceptionistButtonComponent,
-    SpecialistButtonComponent,
-    SurgeonButtonComponent,
-    SurgeryButtonComponent,
     DiagnoseButtonComponent,
-    WingButtonComponent,
+    ExamineButtonComponent,
     // Pipe
     ReversePipe,
     ObjectPipe
