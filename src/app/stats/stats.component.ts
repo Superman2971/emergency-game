@@ -11,20 +11,16 @@ import { PatientService } from '../services/patient.service';
 export class StatsComponent implements OnDestroy {
   _subscription;
   _subscription2;
-  stats = {
-    money: 0,
-    patients: 0,
-    beds: 1,
-    otherInfo: 'need lots more'
-  };
+  stats;
   records = [];
 
   constructor(
     private statsService: StatsService,
     private patientService: PatientService
   ) {
-    this._subscription = this.statsService.moneyChange.subscribe((response) => {
-      this.stats.money = response;
+    this.stats = this.statsService.stats;
+    this._subscription = this.statsService.statsChange.subscribe((response) => {
+      this.stats = response;
     });
     this._subscription2 = this.patientService.recordChange.subscribe((response) => {
       this.records = response;

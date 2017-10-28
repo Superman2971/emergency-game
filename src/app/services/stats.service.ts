@@ -1,17 +1,21 @@
 import { Subject } from 'rxjs/Subject';
 
 export class StatsService {
-  // money
-  moneyChange: Subject<number> = new Subject<number>();
-  money = 200;
+  // stats
+  stats = {
+    money: 200,
+    beds: 1,
+    otherInfo: 'need lots more'
+  };
+  statsChange: Subject<any> = new Subject<any>();
   // messages
   newStatMessage: Subject<string> = new Subject<string>();
 
   constructor() {}
 
   changeMoney(amount) {
-    this.money += amount;
-    this.moneyChange.next(this.money);
+    this.stats.money += amount;
+    this.statsChange.next(this.stats);
   }
 
   newMessage(message) {

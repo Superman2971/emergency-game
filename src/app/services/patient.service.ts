@@ -24,12 +24,28 @@ export class PatientService {
     {name: 'gun shot', level: 10}
   ];
   waitingRoomCapacity = 4;
+  // events
+  events = [{
+    name: 'knife attack',
+    text: `A deranged ${this.randomSex()} came in and attacked with his knife`
+  }, {
+    name: 'gun attack',
+    text: `A deranged ${this.randomSex()} came in and attacked with his gun`
+  }, {
+    name: 'homeless person',
+    text: `A deranged ${this.randomSex()} homeless person yelled at everyoe`
+  }];
+  eventSuccess: Subject<any> = new Subject<any>();
+  chanceOfEvent = 0.9;
 
   constructor() {}
 
   startClock() {
     setInterval(() => {
       this.time++;
+      if (this.time % 240 === 0) {
+        this.newEvent();
+      }
     }, 1000);
   }
 
@@ -84,6 +100,10 @@ export class PatientService {
       this.patientsAwaitingDiagnosisChange.next(this.patientsAwaitingDiagnosis);
       this.newPatient();
     }, this.numberBetween(min || 3000, max || 7000));
+  }
+
+  randomSex() {
+    return Math.random() > 0.5 ? 'female' : 'male';
   }
 
   randomCondition() {
@@ -150,5 +170,12 @@ export class PatientService {
   newRecord(record) {
     this.records.push(record);
     this.recordChange.next(this.records);
+  }
+
+  newEvent() {
+    if (Math.random() < this.chanceOfEvent) {
+      let event = this.events[this.numberBetween(0, this.events.length - 1)];
+      this.newPatientMessage.next(event.text);
+    }
   }
 }
