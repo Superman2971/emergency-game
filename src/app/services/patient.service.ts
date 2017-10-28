@@ -62,7 +62,7 @@ export class PatientService {
       newPatient.difficulty = condition.level;
       newPatient.timeoutId = this.createTimeout(newPatient, this.numberBetween(20000, 40000), 'diagnoseTimeout');
       newPatient.treatTimeoutId = this.createTimeout(newPatient,
-        this.numberBetween((100000 / newPatient.difficulty), (200000 / newPatient.difficulty)), 'treatmentTimeout');
+        this.numberBetween((200000 / newPatient.difficulty), (400000 / newPatient.difficulty)), 'treatmentTimeout');
       // add another patient
       this.patientsAwaitingDiagnosis.push(newPatient);
       if (this.patientsAwaitingDiagnosis.length > this.waitingRoomCapacity) {
@@ -70,6 +70,10 @@ export class PatientService {
         if (patient.timeoutId) {
           clearTimeout(patient.timeoutId);
           patient.timeoutId = null;
+        }
+        if (patient.treatTimeoutId) {
+          clearTimeout(patient.treatTimeoutId);
+          patient.treatTimeoutId = null;
         }
         this.newRecord(`Patient ${patient.id} left. Waiting room full.`);
         this.newPatientMessage.next(`Too many in waiting room. Patient with ${patient.condition} got fed up and left.`);

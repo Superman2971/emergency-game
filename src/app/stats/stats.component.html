@@ -8,5 +8,5 @@
     <div>RECORDS</div>
     <div *ngFor="let record of records" [innerHTML]="record"></div>
   </div>
-  <div (click)="stop()">STOP BUTTON</div>
+  <div *ngIf="!stopthis" (click)="stop(); stopthis=true;">STOP BUTTON</div>
 </div>
