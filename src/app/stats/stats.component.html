@@ -4,4 +4,9 @@
     <div>{{stat.key}}</div>
     <div>{{stat.value}}</div>
   </div>
+  <div>
+    <div>RECORDS</div>
+    <div *ngFor="let record of records" [innerHTML]="record"></div>
+  </div>
+  <div (click)="stop()">STOP BUTTON</div>
 </div>

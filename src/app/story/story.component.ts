@@ -17,7 +17,7 @@ export class StoryComponent implements OnInit {
     private stats: StatsService
   ) {
     // subscribed to patient changes
-    this._subscription = stats.messagesChange.subscribe((message) => {
+    this._subscription = stats.newStatMessage.subscribe((message) => {
       this.messages.push(message);
       if (this.messages.length > 20) {
         this.messages.shift();

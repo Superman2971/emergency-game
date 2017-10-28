@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BroadcasterService } from '../services/broadcaster.service';
+import { Component, OnDestroy } from '@angular/core';
+import { StatsService } from '../services/stats.service';
 import { PatientService } from '../services/patient.service';
 
 @Component({
@@ -8,33 +8,36 @@ import { PatientService } from '../services/patient.service';
   styleUrls: ['./stats.component.scss']
 })
 
-export class StatsComponent implements OnInit, OnDestroy {
+export class StatsComponent implements OnDestroy {
   _subscription;
+  _subscription2;
   stats = {
     money: 0,
     patients: 0,
     beds: 1,
     otherInfo: 'need lots more'
   };
+  records = [];
+
   constructor(
-    private broadcast: BroadcasterService,
+    private statsService: StatsService,
     private patientService: PatientService
   ) {
-    this._subscription = this.patientService.patientsChange.subscribe((response) => {
-      this.stats.patients = response.length;
+    this._subscription = this.statsService.moneyChange.subscribe((response) => {
+      this.stats.money = response;
+    });
+    this._subscription2 = this.patientService.recordChange.subscribe((response) => {
+      this.records = response;
     });
   }
 
-  ngOnInit() {
-    // subscribe to 'newStats'
-    this.broadcast.on('newStats').subscribe(response => {
-      console.log('newStats', response);
-      // this.stats = response;
-    });
+  stop() {
+    this.patientService.stop();
   }
 
   ngOnDestroy() {
     // prevent memory leak when component destroyed
     this._subscription.unsubscribe();
+    this._subscription2.unsubscribe();
   }
 }

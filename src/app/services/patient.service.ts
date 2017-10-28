@@ -2,11 +2,13 @@ import { Subject } from 'rxjs/Subject';
 
 export class PatientService {
 
-  patientsChange: Subject<any[]> = new Subject<any[]>();
-  removedPatient: Subject<{}> = new Subject<{}>();
-  patients = [];
-
+  stopthis;
+  // records
+  recordChange: Subject<any[]> = new Subject<any[]>();
+  records = [];
+  // messages
   newPatientMessage: Subject<string> = new Subject<string>();
+  // patients
   patientsAwaitingDiagnosis = [];
   patientsAwaitingDiagnosisChange: Subject<any[]> = new Subject<any[]>();
   patientsAwaitingTreatment = [];
@@ -31,7 +33,14 @@ export class PatientService {
     }, 1000);
   }
 
+  stop() {
+    this.stopthis = true;
+  }
+
   newPatient(min?, max?) {
+    if (this.stopthis) {
+      return;
+    }
     this.patientCount++;
     // use setTimeout to randomize the time to newPatient
     setTimeout(() => {
@@ -62,7 +71,7 @@ export class PatientService {
           clearTimeout(patient.timeoutId);
           patient.timeoutId = null;
         }
-        // this.removedPatient.next(patient);
+        this.newRecord(`Patient ${patient.id} left. Waiting room full.`);
         this.newPatientMessage.next(`Too many in waiting room. Patient with ${patient.condition} got fed up and left.`);
       }
       // conduct a loop through the current patients
@@ -102,6 +111,7 @@ export class PatientService {
     }
     // handle based on reason
     if (reason === 'diagnoseTimeout') {
+      this.newRecord(`Patient ${patient.id} left. Never diagnosed.`);
       this.newPatientMessage.next('Patient could wait no longer and left. If condition was serious, LAWSUIT.');
       // using filter on the patient.id to remove this patient
       this.patientsAwaitingDiagnosis = this.patientsAwaitingDiagnosis.filter((t) => {
@@ -109,9 +119,14 @@ export class PatientService {
       });
       this.patientsAwaitingDiagnosisChange.next(this.patientsAwaitingDiagnosis);
     } else if (reason === 'treatmentTimeout') {
+      this.newRecord(`Patient ${patient.id} died. Never treated.`);
       this.newPatientMessage.next('Patient died due to lack of treatment. Lawsuit inbound!!!');
       // using filter on the patient.id to remove this patient
       this.patientsAwaitingTreatment = this.patientsAwaitingTreatment.filter((t) => {
+        return t.id !== patient.id;
+      });
+      // need to also filter awaiting as it may be there
+      this.patientsAwaitingDiagnosis = this.patientsAwaitingDiagnosis.filter((t) => {
         return t.id !== patient.id;
       });
       this.patientsAwaitingTreatmentChange.next(this.patientsAwaitingTreatment);
@@ -124,6 +139,12 @@ export class PatientService {
   }
 
   treated(patient) {
+    this.newRecord(`Patient ${patient.id} went home. Treated.`);
     this.newPatientMessage.next(`We treated a patient for ${patient.condition}`);
+  }
+
+  newRecord(record) {
+    this.records.push(record);
+    this.recordChange.next(this.records);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-// import { StatsService } from '../../services/stats.service';
+import { StatsService } from '../../services/stats.service';
 import { PatientService } from '../../services/patient.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class TreatButtonComponent implements OnDestroy {
   _subscription;
 
   constructor(
-    // private stats: StatsService
+    private stats: StatsService,
     private patientService: PatientService
   ) {
     // subscribed to patient changes
@@ -41,16 +41,12 @@ export class TreatButtonComponent implements OnDestroy {
 
   purchase() {
     let patient = this.patients.shift();
-    if (patient.timeoutId) {
-      clearTimeout(patient.timeoutId);
-      patient.timeoutId = null;
-    }
     if (patient.treatTimeoutId) {
       clearTimeout(patient.treatTimeoutId);
       patient.treatTimeoutId = null;
     }
     this.patientService.treated(patient);
-    // this.stats.changeMoney(200);
+    this.stats.changeMoney(200);
     this.patientService.newPatientMessage.next(`Helped treat ${patient.condition} and sent them home.`);
   }
 

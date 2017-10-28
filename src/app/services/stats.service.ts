@@ -5,7 +5,7 @@ export class StatsService {
   moneyChange: Subject<number> = new Subject<number>();
   money = 200;
   // messages
-  messagesChange: Subject<string> = new Subject<string>();
+  newStatMessage: Subject<string> = new Subject<string>();
 
   constructor() {}
 
@@ -15,6 +15,6 @@ export class StatsService {
   }
 
   newMessage(message) {
-    this.messagesChange.next(message);
+    this.newStatMessage.next(message);
   }
 }

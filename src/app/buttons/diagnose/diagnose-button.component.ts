@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
-// import { StatsService } from '../../services/stats.service';
+import { StatsService } from '../../services/stats.service';
 
 @Component({
   selector: 'app-diagnose-button',
@@ -16,8 +16,8 @@ export class DiagnoseButtonComponent implements OnDestroy {
   _subscription;
 
   constructor(
-    private patientService: PatientService
-    // private stats: StatsService
+    private patientService: PatientService,
+    private stats: StatsService
   ) {
     // subscribed to patient changes
     this._subscription = patientService.patientsAwaitingDiagnosisChange.subscribe((value) => {
@@ -49,12 +49,8 @@ export class DiagnoseButtonComponent implements OnDestroy {
       clearTimeout(patient.timeoutId);
       patient.timeoutId = null;
     }
-    if (patient.treatTimeoutId) {
-      clearTimeout(patient.treatTimeoutId);
-      patient.treatTimeoutId = null;
-    }
     this.patientService.sendForTreatment(patient);
-    // this.stats.changeMoney(-50);
+    this.stats.changeMoney(-50);
     this.patientService.newPatientMessage.next(`Completed diagnosis for patient with ${patient.condition}`);
   }
 
