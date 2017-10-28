@@ -24,7 +24,7 @@ export class StoryComponent implements OnInit {
       }
     });
     // subscribed to patient changes
-    this._subscription2 = patientService.patientLeft.subscribe((message) => {
+    this._subscription2 = patientService.newPatientMessage.subscribe((message) => {
       this.messages.push(message);
       if (this.messages.length > 20) {
         this.messages.shift();

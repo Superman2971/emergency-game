@@ -4,8 +4,13 @@ export class PatientService {
 
   patientsChange: Subject<any[]> = new Subject<any[]>();
   removedPatient: Subject<{}> = new Subject<{}>();
-  patientLeft: Subject<string> = new Subject<string>();
   patients = [];
+
+  newPatientMessage: Subject<string> = new Subject<string>();
+  patientsAwaitingDiagnosis = [];
+  patientsAwaitingDiagnosisChange: Subject<any[]> = new Subject<any[]>();
+  patientsAwaitingTreatment = [];
+  patientsAwaitingTreatmentChange: Subject<any[]> = new Subject<any[]>();
   patientCount = 0;
   time = 0;
   conditions = [
@@ -46,23 +51,24 @@ export class PatientService {
       const condition = this.randomCondition();
       newPatient.condition = condition.name;
       newPatient.difficulty = condition.level;
-      newPatient.timeoutId = this.createTimeout(newPatient, this.numberBetween(20000, 40000));
-      // newPatient.treatTimeoutId = this.createTimeout(newPatient,
-      //   this.numberBetween((100000 / newPatient.difficulty), (200000 / newPatient.difficulty))); ////  NOTE TO MAKE THIS WORK NEED TO MAKE NEW CREATE TIMEOUT SO IT DOESNT USE THE SAME REMOVE PATIENT FUNCTION
+      newPatient.timeoutId = this.createTimeout(newPatient, this.numberBetween(20000, 40000), 'diagnoseTimeout');
+      newPatient.treatTimeoutId = this.createTimeout(newPatient,
+        this.numberBetween((100000 / newPatient.difficulty), (200000 / newPatient.difficulty)), 'treatmentTimeout');
       // add another patient
-      this.patients.push(newPatient);
-      if (this.patients.length > this.waitingRoomCapacity) {
-        let patient = this.patients.shift();
+      this.patientsAwaitingDiagnosis.push(newPatient);
+      if (this.patientsAwaitingDiagnosis.length > this.waitingRoomCapacity) {
+        let patient = this.patientsAwaitingDiagnosis.shift();
         if (patient.timeoutId) {
           clearTimeout(patient.timeoutId);
           patient.timeoutId = null;
         }
-        this.removedPatient.next(patient);
+        // this.removedPatient.next(patient);
+        this.newPatientMessage.next(`Too many in waiting room. Patient with ${patient.condition} got fed up and left.`);
       }
       // conduct a loop through the current patients
       // HERE
       // send patients to subscribed components
-      this.patientsChange.next(this.patients);
+      this.patientsAwaitingDiagnosisChange.next(this.patientsAwaitingDiagnosis);
       this.newPatient();
     }, this.numberBetween(min || 3000, max || 7000));
   }
@@ -76,23 +82,48 @@ export class PatientService {
     return Math.floor(Math.random() * max) + 1 + min;
   }
 
-  createTimeout(patient, patientLife?): any {
+  createTimeout(patient, patientLife, reason): any {
     let task: number;
       task = setTimeout(() => {
-        this.removePatient(patient);
+        this.removePatient(patient, reason);
       }, (patientLife || 30000));
     return task;
   }
 
-  removePatient(patient) {
-    this.patientLeft.next('Patient could wait no longer and left');
+  removePatient(patient, reason) {
+    // remove timeouts
     if (patient.timeoutId) {
       clearTimeout(patient.timeoutId);
       patient.timeoutId = null;
     }
-    // using filter on the patient.id to remove this patient
-    this.patients = this.patients.filter((t) => {
-      return t.id !== patient.id;
-    });
+    if (patient.treatTimeoutId) {
+      clearTimeout(patient.treatTimeoutId);
+      patient.treatTimeoutId = null;
+    }
+    // handle based on reason
+    if (reason === 'diagnoseTimeout') {
+      this.newPatientMessage.next('Patient could wait no longer and left. If condition was serious, LAWSUIT.');
+      // using filter on the patient.id to remove this patient
+      this.patientsAwaitingDiagnosis = this.patientsAwaitingDiagnosis.filter((t) => {
+        return t.id !== patient.id;
+      });
+      this.patientsAwaitingDiagnosisChange.next(this.patientsAwaitingDiagnosis);
+    } else if (reason === 'treatmentTimeout') {
+      this.newPatientMessage.next('Patient died due to lack of treatment. Lawsuit inbound!!!');
+      // using filter on the patient.id to remove this patient
+      this.patientsAwaitingTreatment = this.patientsAwaitingTreatment.filter((t) => {
+        return t.id !== patient.id;
+      });
+      this.patientsAwaitingTreatmentChange.next(this.patientsAwaitingTreatment);
+    }
+  }
+
+  sendForTreatment(patient) {
+    this.patientsAwaitingTreatment.push(patient);
+    this.patientsAwaitingTreatmentChange.next(this.patientsAwaitingTreatment);
+  }
+
+  treated(patient) {
+    this.newPatientMessage.next(`We treated a patient for ${patient.condition}`);
   }
 }
