@@ -1,5 +1,5 @@
-<div class="button" [class.disabled]="!active" (click)="progressInit();">
-  <div>Examine {{openModal}}</div>
+<div class="button" [class.disabled]="deactivate || patients.length === 0" (click)="progressInit();">
+  <div>Examine</div>
   <div [innerHTML]="patients.length"></div>
   <div class="progress" [style.width.%]="progress"></div>
 </div>
