@@ -1,4 +1,11 @@
 <div class="button" [class.disabled]="!active" (click)="progressInit();">
-  <div>Examine</div>
+  <div>Examine {{openModal}}</div>
+  <div [innerHTML]="patients.length"></div>
   <div class="progress" [style.width.%]="progress"></div>
 </div>
+<app-evaluate-modal
+  [active]="openModal"
+  (closed)="openModal=$event"
+  [condition]="modalCondition"
+  (response)="modalResponse($event)"
+></app-evaluate-modal>

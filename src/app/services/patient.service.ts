@@ -70,11 +70,12 @@ export class PatientService {
         condition: null,
         difficulty: null,
         arrivalTime: this.time,
-        diagnosed: false,
-        treated: false,
-        processed: false,
-        released: false,
-        alive: true,
+        diagnosedAs: this.randomCondition().name,
+        // diagnosed: false,
+        // treated: false,
+        // processed: false,
+        // released: false,
+        // alive: true,
         timeoutId: null,
         treatTimeoutId: null
       };

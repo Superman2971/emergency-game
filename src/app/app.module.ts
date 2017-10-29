@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { StoryComponent } from './story/story.component';
 import { ButtonsContainerComponent } from './buttons-container/buttons-container.component';
 import { StatsComponent } from './stats/stats.component';
+// Modals
+import { EvaluateModalComponent } from './modals/evaluate-modal/evaluate-modal.component';
 // Button Components
 import { BedButtonComponent } from './buttons/Bed/bed-button.component';
 import { ExamineButtonComponent } from './buttons/examine/examine-button.component';
@@ -29,6 +31,8 @@ import { DiagnoseButtonComponent } from './buttons/diagnose/diagnose-button.comp
     TreatButtonComponent,
     DiagnoseButtonComponent,
     ExamineButtonComponent,
+    // Modals
+    EvaluateModalComponent,
     // Pipe
     ReversePipe,
     ObjectPipe

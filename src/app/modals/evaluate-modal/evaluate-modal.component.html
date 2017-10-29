@@ -1,0 +1,14 @@
+<div class="modal-overlay" [class.active]="active">
+  <div class="modal-card">
+    <div class="header">You believe the patient has {{condition}}</div>
+    <div style="padding: 24px 0;" class="flex-row">
+      <div class="button" (click)="submit('Tests')">Submit Tests</div>
+      <div class="button" (click)="submit('Home')">Prescribe Medication / Send Home</div>
+    </div>
+    <div style="padding: 0 0 24px 0;" class="flex-row">
+      <div class="button" (click)="submit('Bed')">Admit to Bed</div>
+      <div class="button" (click)="submit('Surgery')">Admit to OR for Surgery</div>
+      <div class="button" (click)="submit('Hospital')">Send to Another Hostpital</div>
+    </div>
+  </div>
+</div>

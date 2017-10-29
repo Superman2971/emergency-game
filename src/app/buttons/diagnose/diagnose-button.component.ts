@@ -10,7 +10,6 @@ import { StatsService } from '../../services/stats.service';
 export class DiagnoseButtonComponent implements OnDestroy {
   @Input() deactivate;
   @Output() activation: EventEmitter<boolean> = new EventEmitter();
-  sentText = 1;
   progress = 0;
   timeToActive = 1000;
   patients = [];
